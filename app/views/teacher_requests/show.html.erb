@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @teacher_request.teacher.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @teacher_request.description %>
+</p>
+
+<p>
+  <strong>Closed at:</strong>
+  <%= @teacher_request.closed_at %>
+</p>
+
+<%= link_to 'Edit', edit_teacher_request_path(@teacher_request) %> |
+<%= link_to 'Back', teacher_requests_path %>

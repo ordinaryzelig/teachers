@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Teacher Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Teacher</th>
+      <th>Description</th>
+      <th>Closed at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teacher_requests.each do |teacher_request| %>
+      <tr>
+        <td><%= teacher_request.teacher.name %></td>
+        <td><%= teacher_request.description %></td>
+        <td><%= teacher_request.closed_at %></td>
+        <td><%= link_to 'Show', teacher_request %></td>
+        <td><%= link_to 'Edit', edit_teacher_request_path(teacher_request) %></td>
+        <td><%= link_to 'Destroy', teacher_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Teacher Request', new_teacher_request_path %>
