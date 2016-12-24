@@ -18,4 +18,10 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
+  CATEGORIES.each do |cat|
+    define_method "#{cat}?" do
+      category == cat
+    end
+  end
+
 end

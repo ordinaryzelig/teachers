@@ -1,5 +1,5 @@
 class TeachingPositionsController < ApplicationController
-  before_action :set_teaching_position, only: [:show, :edit, :update, :destroy]
+  before_action :set_teaching_position, only: [:show, :destroy]
 
   # GET /teaching_positions
   # GET /teaching_positions.json
@@ -14,17 +14,13 @@ class TeachingPositionsController < ApplicationController
 
   # GET /teaching_positions/new
   def new
-    @teaching_position = TeachingPosition.new
-  end
-
-  # GET /teaching_positions/1/edit
-  def edit
+    @teaching_position = current_teacher.teaching_positions.build
   end
 
   # POST /teaching_positions
   # POST /teaching_positions.json
   def create
-    @teaching_position = TeachingPosition.new(teaching_position_params)
+    @teaching_position = current_teacher.teaching_positions.new(teaching_position_params)
 
     respond_to do |format|
       if @teaching_position.save
@@ -32,20 +28,6 @@ class TeachingPositionsController < ApplicationController
         format.json { render :show, status: :created, location: @teaching_position }
       else
         format.html { render :new }
-        format.json { render json: @teaching_position.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /teaching_positions/1
-  # PATCH/PUT /teaching_positions/1.json
-  def update
-    respond_to do |format|
-      if @teaching_position.update(teaching_position_params)
-        format.html { redirect_to @teaching_position, notice: 'Teaching position was successfully updated.' }
-        format.json { render :show, status: :ok, location: @teaching_position }
-      else
-        format.html { render :edit }
         format.json { render json: @teaching_position.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +51,10 @@ class TeachingPositionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teaching_position_params
-      params.require(:teaching_position).permit(:teacher_id, :school_id)
+      params
+        .require(:teaching_position)
+        .permit(
+          :school_id,
+        )
     end
 end

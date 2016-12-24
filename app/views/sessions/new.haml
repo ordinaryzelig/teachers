@@ -1,0 +1,7 @@
+= form_for @user, :url => sessions_path do |f|
+
+  .form-group
+    = f.label :id
+    = f.number_field :id
+
+  = f.submit 'Log in'
