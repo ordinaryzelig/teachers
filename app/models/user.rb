@@ -1,9 +1,13 @@
 class User < ApplicationRecord
 
   has_many :comments
-  has_many :teaching_positions, :foreign_key => :teacher_id
+  has_many :teaching_positions, :foreign_key => :teacher_id do
+    def latest
+      order(:created_at).last
+    end
+  end
   has_many :schools, :through => :teaching_positions
-  has_many :teacher_requests
+  has_many :teacher_requests, :through => :teaching_positions
 
   CATEGORIES = %w[
     teacher
@@ -22,6 +26,11 @@ class User < ApplicationRecord
     define_method "#{cat}?" do
       category == cat
     end
+  end
+
+  def model_name
+    return super unless category
+    ActiveModel::Name.new(self.class, nil, category.classify)
   end
 
 end

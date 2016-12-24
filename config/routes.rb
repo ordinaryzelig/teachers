@@ -3,10 +3,14 @@ Rails.application.routes.draw do
 
   resources :schools
   resources :comments
-  resources :teacher_requests
   resources :users
 
   resources :teaching_positions, :only => [:show, :new, :create, :destroy]
+  resources :teacher_requests, :only => [:new, :create, :edit, :update]
+
+  resources :teachers, :only => [] do
+    resources :teacher_requests, :only => [:index, :show]
+  end
 
   resources :sessions
 end

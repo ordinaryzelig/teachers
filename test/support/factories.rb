@@ -20,10 +20,16 @@ module Factories
 
     def factory!(name)
       factory = Factories.find(name)
-      factory[:class].create!(factory[:attributes])
+      attributes = factory[:attributes]
+      if attributes.respond_to?(:call)
+        attributes = attributes.()
+      end
+      factory[:class].create!(attributes)
     end
 
   end
+
+  extend TestCaseMethods
 
 end
 

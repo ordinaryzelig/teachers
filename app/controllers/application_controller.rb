@@ -12,4 +12,8 @@ private
     current_user.teacher? ? current_user : raise("current_user #{current_user.id} is not a teacher")
   end
 
+  def current_teaching_position
+    @current_teaching_position ||= current_teacher.teaching_positions.latest
+  end
+
 end
