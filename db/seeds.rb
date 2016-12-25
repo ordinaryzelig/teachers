@@ -1,10 +1,4 @@
-piedmont_primary = School.create!(
-  :name => 'Piedmont Primary',
-  :address_1 => 'Edmond Rd.',
-  :city => 'Piedmont',
-  :postal_code => 'sure',
-  :state => 'OK',
-)
+require_relative 'schools_import'
 
 stephanie = User.create!(
   :first_name => 'Stephanie',
@@ -12,4 +6,5 @@ stephanie = User.create!(
   :category => 'teacher',
 )
 
+piedmont_primary = School.where(:name => 'Piedmont Primary Es').first!
 stephanie.schools << piedmont_primary

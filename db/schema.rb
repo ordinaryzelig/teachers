@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220020706) do
+ActiveRecord::Schema.define(version: 20161220020312) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id",            null: false
@@ -18,17 +21,18 @@ ActiveRecord::Schema.define(version: 20161220020706) do
     t.integer  "teacher_request_id", null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.index ["teacher_request_id"], name: "index_comments_on_teacher_request_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["teacher_request_id"], name: "index_comments_on_teacher_request_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
     t.string   "name",        null: false
-    t.string   "address_1",   null: false
+    t.string   "address_1"
     t.string   "address_2"
-    t.string   "city",        null: false
-    t.string   "postal_code", null: false
-    t.string   "state",       null: false
+    t.string   "city"
+    t.string   "postal_code"
+    t.string   "state"
+    t.jsonb    "data"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -39,7 +43,7 @@ ActiveRecord::Schema.define(version: 20161220020706) do
     t.datetime "closed_at"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.index ["teaching_position_id"], name: "index_teacher_requests_on_teaching_position_id"
+    t.index ["teaching_position_id"], name: "index_teacher_requests_on_teaching_position_id", using: :btree
   end
 
   create_table "teaching_positions", force: :cascade do |t|
@@ -47,8 +51,8 @@ ActiveRecord::Schema.define(version: 20161220020706) do
     t.integer  "school_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["school_id"], name: "index_teaching_positions_on_school_id"
-    t.index ["teacher_id"], name: "index_teaching_positions_on_teacher_id"
+    t.index ["school_id"], name: "index_teaching_positions_on_school_id", using: :btree
+    t.index ["teacher_id"], name: "index_teaching_positions_on_teacher_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,4 +63,9 @@ ActiveRecord::Schema.define(version: 20161220020706) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "teacher_requests"
+  add_foreign_key "comments", "users"
+  add_foreign_key "teacher_requests", "teaching_positions"
+  add_foreign_key "teaching_positions", "schools"
+  add_foreign_key "teaching_positions", "users", column: "teacher_id"
 end
