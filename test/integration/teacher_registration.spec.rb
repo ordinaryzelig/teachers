@@ -9,8 +9,8 @@ describe 'Teacher registration integration' do
 
     click_on 'Add school'
 
-    select piedmont_primary.name
-    click_on 'Add'
+    fill_in 'teaching_position_school_id', :with => piedmont_primary.id
+    click_on 'Add School'
 
     current_path.must_equal teaching_position_path(stephanie.teaching_positions.last)
     page.must_have_content piedmont_primary.name
