@@ -9,7 +9,9 @@ describe 'Teacher registration integration' do
 
     click_on 'Add school'
 
-    fill_in 'teaching_position_school_id', :with => piedmont_primary.id
+    # User would set by using auto-complete, but we are skipping that step here.
+    school_id_field = find '#teaching_position_school_id', :visible => false
+    school_id_field.set piedmont_primary.id
     click_on 'Add School'
 
     current_path.must_equal teaching_position_path(stephanie.teaching_positions.last)

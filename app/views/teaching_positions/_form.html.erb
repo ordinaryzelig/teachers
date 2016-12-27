@@ -12,8 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :school_id %>
-    <%= f.text_field :school_id %>
+    <%= label_tag :school_search, 'School' %>
+    <%= text_field_tag :school_search %>
+    <%= f.hidden_field :school_id %>
   </div>
 
   <div class="actions">

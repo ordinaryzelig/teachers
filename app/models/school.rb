@@ -5,4 +5,12 @@ class School < ApplicationRecord
 
   validates :name, :presence => true
 
+  class << self
+
+    def search(name)
+      where(%q{name ILIKE ?}, %Q{%#{name}%})
+    end
+
+  end
+
 end

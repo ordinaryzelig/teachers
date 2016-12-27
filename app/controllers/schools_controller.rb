@@ -1,6 +1,11 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :edit, :update, :destroy]
 
+  def search
+    schools = School.search(params[:name])
+    render :json => schools
+  end
+
   # GET /schools
   # GET /schools.json
   def index

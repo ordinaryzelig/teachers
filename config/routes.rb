@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root 'dashboard#index', :as => :dashboard
 
-  resources :schools
+  resources :schools do
+    collection do
+      get 'search/:name', :action => 'search'
+    end
+  end
   resources :comments
   resources :users
 
