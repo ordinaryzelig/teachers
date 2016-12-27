@@ -1,5 +1,5 @@
 class TeacherRequestsController < ApplicationController
-  before_action :set_teacher_from_params, :only => [:index, :show]
+  before_action :set_teacher_from_params, :only => [:index]
   before_action :set_teacher_request, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -21,7 +21,7 @@ class TeacherRequestsController < ApplicationController
 
     respond_to do |format|
       if @teacher_request.save
-        format.html { redirect_to [current_teacher, @teacher_request], notice: 'Teacher request was successfully created.' }
+        format.html { redirect_to @teacher_request, notice: 'Teacher request was successfully created.' }
         format.json { render :show, status: :created, location: @teacher_request }
       else
         format.html { render :new }

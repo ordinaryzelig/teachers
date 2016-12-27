@@ -15,5 +15,27 @@
   <%= @teacher_request.closed_at %>
 </p>
 
-<%= link_to 'Edit', edit_teacher_request_path(@teacher_request) %> |
-<%= link_to 'Back', teacher_requests_path %>
+<h3>Comments</h3>
+
+<p>
+  <% @teacher_request.comments.each do |comment| %>
+    <div id="<%= dom_id(comment) %>">
+      <%= comment.body %>
+    </div>
+  <% end %>
+</p>
+
+<p>
+  <%= form_for @teacher_request.comments.build do |f| %>
+    <div class="form-group">
+      <%= f.hidden_field :teacher_request_id %>
+
+      <%= f.label :body, 'Comment' %>
+      <%= f.text_area :body %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit 'Add comment' %>
+    </div>
+  <% end %>
+</p>

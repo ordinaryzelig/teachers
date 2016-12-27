@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   resources :users
 
   resources :teaching_positions, :only => [:show, :new, :create, :destroy]
-  resources :teacher_requests, :only => [:new, :create, :edit, :update]
+  resources :teacher_requests, :only => [:new, :create, :edit, :update, :show]
 
   resources :teachers, :only => [] do
-    resources :teacher_requests, :only => [:index, :show]
+    resources :teacher_requests, :only => [:index]
   end
 
   resources :sessions

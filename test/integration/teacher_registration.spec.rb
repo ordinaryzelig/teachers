@@ -3,8 +3,8 @@ require 'test_helper'
 describe 'Teacher registration integration' do
 
   it 'creates TeachingPosition between teacher and existing school' do
-    piedmont_primary = factory!(:piedmont_primary)
-    stephanie = factory!(:stephanie)
+    piedmont_primary = Factories.piedmont_primary
+    stephanie = Factories.stephanie
     login_as stephanie
 
     click_on 'Add school'

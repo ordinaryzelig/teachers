@@ -1,9 +1,15 @@
-Factories.define(
-  :stephanie,
-  :class => User,
-  :attributes => {
-    :first_name => 'Stephanie',
-    :last_name  => 'Adler',
-    :category   => 'teacher',
-  },
-)
+module Factories
+
+  module_function
+
+  def stephanie(atts = {})
+    atts[:first_name] ||= 'Stephanie'
+    atts[:last_name]  ||= 'Adler'
+    User.create!(
+      atts.merge(
+        :category => 'teacher',
+      )
+    )
+  end
+
+end

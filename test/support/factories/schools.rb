@@ -1,11 +1,14 @@
-Factories.define(
-  :piedmont_primary,
-  :class => School,
-  :attributes => {
-    :name        => 'Piedmont Primary',
-    :address_1   => 'Edmond Rd.',
-    :city        => 'Piedmont',
-    :postal_code => 'sure',
-    :state       => 'OK',
-  },
-)
+module Factories
+
+  module_function
+
+  def piedmont_primary(atts = {})
+    atts[:name]        ||= 'Piedmont Primary'
+    atts[:address_1]   ||= 'Edmond Rd.'
+    atts[:city]        ||= 'Piedmont'
+    atts[:postal_code] ||= 'sure'
+    atts[:state]       ||= 'OK'
+    School.create!(atts)
+  end
+
+end
