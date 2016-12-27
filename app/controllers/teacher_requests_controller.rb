@@ -1,6 +1,6 @@
 class TeacherRequestsController < ApplicationController
   before_action :set_teacher_from_params, :only => [:index]
-  before_action :set_teacher_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_teacher_request, only: [:show, :edit, :update, :destroy, :close]
 
   def index
     @teacher_requests = TeacherRequest.all
@@ -42,6 +42,11 @@ class TeacherRequestsController < ApplicationController
     end
   end
 
+  def close
+    @teacher_request.close!
+    redirect_to @teacher_request
+  end
+
   private
 
     def set_teacher_from_params
@@ -62,4 +67,9 @@ class TeacherRequestsController < ApplicationController
           :closed_at,
         )
     end
+
+  def can_edit_teacher_request?(teacher_request)
+    teacher_request.teacher == current_user
+  end
+  helper_method :can_edit_teacher_request?
 end

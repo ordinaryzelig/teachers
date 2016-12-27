@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<% if @teacher_request.closed_at %>
+  <h3>
+    Closed on <%= @teacher_request.closed_at.to_date.to_s(:short) %>
+  </h3>
+<% end %>
+
 <p>
   <strong>Teacher:</strong>
   <%= @teacher_request.teacher.name %>
@@ -10,10 +16,11 @@
   <%= @teacher_request.description %>
 </p>
 
-<p>
-  <strong>Closed at:</strong>
-  <%= @teacher_request.closed_at %>
-</p>
+<% if can_edit_teacher_request?(@teacher_request) %>
+  <p>
+    <%= link_to 'Edit', [:edit, @teacher_request] %>
+  </p>
+<% end %>
 
 <h3>Comments</h3>
 

@@ -6,4 +6,8 @@ class TeacherRequest < ApplicationRecord
 
   validates :description, :presence => true
 
+  def close!
+    touch(:closed_at)
+  end
+
 end

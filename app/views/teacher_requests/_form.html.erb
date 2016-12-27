@@ -18,5 +18,8 @@
 
   <div class="actions">
     <%= f.submit 'Request' %>
+    <% if teacher_request.persisted? && teacher_request.closed_at.nil? %>
+      <%= link_to 'Close request', [:close, teacher_request], :data => {:confirm => 'Are you sure?'}, :method => :patch %>
+    <% end %>
   </div>
 <% end %>
