@@ -6,6 +6,7 @@ if Rails.env.test?
     def self.plugin_rails_spec_options(opts, options)
       if options[:patterns].empty?
         options[:patterns] << 'test/**/*.spec.rb'
+        options[:patterns] << 'test/**/*_test.rb'
       end
     end
   end

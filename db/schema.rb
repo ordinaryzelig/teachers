@@ -56,9 +56,11 @@ ActiveRecord::Schema.define(version: 20161220020312) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "category",   null: false
+    t.string   "email",      null: false
+    t.string   "first_name", null: false
+    t.string   "last_name",  null: false
+    t.string   "category"
+    t.jsonb    "auth_hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

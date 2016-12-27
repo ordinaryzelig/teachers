@@ -16,7 +16,24 @@ class User < ApplicationRecord
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  validates :category, :inclusion => {:in => CATEGORIES}
+  validates :category, :inclusion => {:in => CATEGORIES}, :on => :update
+
+  class << self
+
+    def find_or_create_from_auth_hash(auth_hash)
+      raise "Can only authenticate via facebook" if auth_hash.fetch(:provider) != 'facebook'
+
+      user_scope = User.where(
+        :email => auth_hash.dig(:extra, :raw_info, :email),
+      )
+      user_scope.first || user_scope.create!(
+        :auth_hash  => auth_hash,
+        :first_name => auth_hash.dig(:extra, :raw_info, :first_name),
+        :last_name  => auth_hash.dig(:extra, :raw_info, :last_name),
+      )
+    end
+
+  end
 
   def name
     [first_name, last_name].compact.join(' ')
