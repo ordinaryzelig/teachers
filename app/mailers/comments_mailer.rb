@@ -1,11 +1,10 @@
 class CommentsMailer < ApplicationMailer
 
-  def teacher_request_comment(comment, teacher_request)
-    @comment         = comment
-    @teacher_request = teacher_request
+  def teacher_request_comment(comment, user)
+    @comment = comment
     mail(
-      :to      => @teacher_request.teacher.email,
-      :subject => "#{@teacher_request.description.inspect} comment from #{@comment.user.name}"
+      :to      => user.email,
+      :subject => "#{@comment.teacher_request.description.inspect} comment from #{@comment.user.name}"
     )
   end
 

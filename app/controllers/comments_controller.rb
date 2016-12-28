@@ -1,20 +1,18 @@
 class CommentsController < ApplicationController
 
   def create
-    @comment = current_user.comments.build(comment_params)
-
+    @comment = current_user.comments.create!(comment_params)
     respond_to do |format|
-      if @comment.save!
-        CommentsMailer.teacher_request_comment(@comment, @comment.teacher_request).deliver_now
-        format.html { redirect_to @comment.teacher_request, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+      @comment.users_to_email.each do |user|
+        CommentsMailer.teacher_request_comment(@comment, user).deliver_later
       end
+      format.html { redirect_to @comment.teacher_request, notice: 'Comment was successfully created.' }
+      format.json { render :show, status: :created, location: @comment }
     end
   end
 
 private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def comment_params
     params
       .require(:comment)
@@ -24,4 +22,5 @@ private
         :teacher_request_id,
       )
   end
+
 end
