@@ -5,11 +5,13 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save!
+        CommentsMailer.teacher_request_comment(@comment, @comment.teacher_request).deliver_now
         format.html { redirect_to @comment.teacher_request, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       end
     end
   end
+
 private
 
   # Never trust parameters from the scary internet, only allow the white list through.

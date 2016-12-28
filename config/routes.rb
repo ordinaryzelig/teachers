@@ -20,7 +20,5 @@ Rails.application.routes.draw do
     resources :teacher_requests, :only => [:index]
   end
 
-  resources :sessions
-
   get '/auth/:provider/callback', to: 'sessions#create'
 end

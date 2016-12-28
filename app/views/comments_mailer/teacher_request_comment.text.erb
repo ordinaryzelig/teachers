@@ -1,0 +1,7 @@
+<%= @comment.user.name %> commented:
+
+<%= @comment.body %>
+
+---
+
+To reply: <%= teacher_request_url(@teacher_request.id, :host => 'http://localhost:3000') %>.

@@ -4,8 +4,8 @@ require 'rails/test_help'
 
 $LOAD_PATH.unshift __dir__
 require 'support/minitest'
+require 'support/omniauth'
 require 'support/factories'
-require 'support/integration_tests'
 require 'support/database_cleaner'
 
 class ActiveSupport::TestCase

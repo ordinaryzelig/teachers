@@ -1,17 +1,8 @@
 OmniAuth.config.test_mode = true
 
-RequestSpec.include(Module.new do
+module OmniAuthTestHelper
 
-  def login_as(user)
-    mock_auth_hash(user)
-    visit '/auth/facebook'
-  end
-
-  def teardown
-    OmniAuth.config.mock_auth[:facebook] = nil
-  end
-
-private
+  module_function
 
   def mock_auth_hash(user)
     OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
@@ -24,4 +15,12 @@ private
     })
   end
 
-end)
+  def unmock_auth
+    OmniAuth.config.mock_auth[:facebook] = nil
+  end
+
+  def login_path
+    '/auth/facebook'
+  end
+
+end
