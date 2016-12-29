@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :users
 
-  resources :teaching_positions, :only => [:show, :new, :create, :destroy]
+  resources :teaching_positions, :only => [:show, :new, :create]
   resources :teacher_requests, :only => [:new, :create, :edit, :update, :show] do
     member do
       patch :close

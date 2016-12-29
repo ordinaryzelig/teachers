@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20161229044758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_teaching_positions_on_school_id", using: :btree
+    t.index ["teacher_id", "school_id"], name: "index_teaching_positions_on_teacher_id_and_school_id", unique: true, using: :btree
     t.index ["teacher_id"], name: "index_teaching_positions_on_teacher_id", using: :btree
   end
 
