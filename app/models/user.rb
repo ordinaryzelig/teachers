@@ -19,6 +19,18 @@ class User < ApplicationRecord
     donor
   ]
 
+  TITLES = %w[
+    Dr.
+    Mr.
+    Mrs.
+    Ms.
+  ]
+
+  before_validation :if => :title_changed? do |user|
+    user.title = user.title.presence
+  end
+
+  validates :title, :inclusion => {:in => TITLES}, :allow_nil => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :category, :inclusion => {:in => CATEGORIES}, :if => :category_changed?
@@ -45,7 +57,18 @@ class User < ApplicationRecord
   end
 
   def name
-    [first_name, last_name].compact.join(' ')
+    [
+      title,
+      first_name,
+      last_name,
+    ].compact.join(' ')
+  end
+
+  def professional_name
+    [
+      title || 'Ms./Mr.',
+      last_name,
+    ].join(' ')
   end
 
   def support(teacher)

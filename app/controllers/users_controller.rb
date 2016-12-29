@@ -72,6 +72,7 @@ class UsersController < ApplicationController
       params
         .require(:user)
         .permit(
+          :title,
           :first_name,
           :last_name,
           :category,

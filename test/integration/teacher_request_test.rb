@@ -9,11 +9,12 @@ describe 'Teacher request integration' do
     login_as teacher
 
     click_on 'Make a request'
-    fill_in 'Description', :with => 'pencils'
+    fill_in 'Title', :with => 'Paper'
+    fill_in 'Description', :with => 'White 8.5 x 11'
     click_on 'Request'
 
     current_path.must_equal teacher_request_path(teacher.teacher_requests.last)
-    page.must_have_content 'pencils'
+    page.must_have_content 'Paper'
   end
 
   it 'allows comments' do
@@ -61,7 +62,7 @@ describe 'Teacher request integration' do
     ActionMailer::Base.deliveries.size.must_equal 1
     email = ActionMailer::Base.deliveries.first
     email.to.must_equal [donor.email]
-    email.subject.must_equal "#{teacher.name} needs Pencils. Can you help?"
+    email.subject.must_equal "#{teacher.professional_name} needs Pencils. Can you help?"
   end
 
 end

@@ -1,4 +1,5 @@
-%h3= @teacher.name
+%h3= @teacher.professional_name
+%h4= @teacher.name
 
 - if current_user.supports?(@teacher)
   = 'You are a supporter'

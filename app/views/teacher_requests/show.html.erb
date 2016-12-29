@@ -6,10 +6,13 @@
   </h3>
 <% end %>
 
-<p>
-  <strong>Teacher:</strong>
-  <%= @teacher_request.teacher.name %>
-</p>
+<h2>
+  <%= @teacher_request.title %>
+</h2>
+
+<h4>
+  For <%= @teacher_request.teacher.professional_name %>
+</h4>
 
 <p>
   <strong>Description:</strong>

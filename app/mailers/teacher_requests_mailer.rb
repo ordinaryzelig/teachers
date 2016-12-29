@@ -5,7 +5,7 @@ class TeacherRequestsMailer < ApplicationMailer
     @supporter = User.donors.first
     mail(
       :to => @supporter.email,
-      :subject => "#{@teacher_request.teacher.name} needs #{@teacher_request.title}. Can you help?",
+      :subject => "#{@teacher_request.teacher.professional_name} needs #{@teacher_request.title}. Can you help?",
     )
   end
 

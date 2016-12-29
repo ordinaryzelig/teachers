@@ -2,6 +2,7 @@ class TeacherRequestsController < ApplicationController
   before_action :set_teacher_from_params, :only => [:index]
   before_action :set_teacher_request, only: [:show, :edit, :update, :destroy, :close]
 
+  # teachers/:teacher_id/teacher_requests
   def index
     @teacher_requests = TeacherRequest.all
   end
@@ -53,7 +54,7 @@ class TeacherRequestsController < ApplicationController
   private
 
     def set_teacher_from_params
-      @teacher = User.find(params[:teacher_id])
+      @teacher ||= User.find(params[:teacher_id])
     end
 
     # Use callbacks to share common setup or constraints between actions.
