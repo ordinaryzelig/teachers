@@ -21,6 +21,9 @@ class TeacherRequestsController < ApplicationController
 
     respond_to do |format|
       if @teacher_request.save
+        @teacher_request.teacher.supporters.each do |supporter|
+          TeacherRequestsMailer.created(@teacher_request, supporter).deliver_later
+        end
         format.html { redirect_to @teacher_request, notice: 'Teacher request was successfully created.' }
         format.json { render :show, status: :created, location: @teacher_request }
       else
@@ -63,6 +66,7 @@ class TeacherRequestsController < ApplicationController
       params
         .require(:teacher_request)
         .permit(
+          :title,
           :description,
           :closed_at,
         )

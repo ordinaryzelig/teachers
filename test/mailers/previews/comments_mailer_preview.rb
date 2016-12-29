@@ -3,7 +3,7 @@ class CommentsMailerPreview < ActionMailer::Preview
 
   def teacher_request_comment
     comment = Comment.first
-    CommentsMailer.teacher_request_comment(comment, comment.teacher_request)
+    CommentsMailer.teacher_request_comment(comment, comment.user)
   end
 
 end

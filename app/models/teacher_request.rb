@@ -5,6 +5,7 @@ class TeacherRequest < ApplicationRecord
   has_many :comments
   has_many :commenters, :through => :comments, :source => :user
 
+  validates :title, :presence => true
   validates :description, :presence => true
 
   def close!

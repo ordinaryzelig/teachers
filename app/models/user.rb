@@ -23,6 +23,10 @@ class User < ApplicationRecord
   validates :last_name, :presence => true
   validates :category, :inclusion => {:in => CATEGORIES}, :if => :category_changed?
 
+  CATEGORIES.each do |cat|
+    scope cat.pluralize, -> { where(:category => cat) }
+  end
+
   class << self
 
     def find_or_create_from_auth_hash(auth_hash)

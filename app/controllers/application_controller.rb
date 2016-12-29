@@ -15,7 +15,7 @@ private
   helper_method :current_teacher
 
   def current_teaching_position
-    @current_teaching_position ||= current_teacher.teaching_positions.latest
+    @current_teaching_position ||= current_teacher.teaching_positions.latest or raise "#{current_teacher.name.inspect} has no TeachingPositions"
   end
   helper_method :current_teaching_position
 

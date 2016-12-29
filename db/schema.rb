@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161229044758) do
 
   create_table "teacher_requests", force: :cascade do |t|
     t.integer  "teaching_position_id", null: false
+    t.string   "title",                null: false
     t.text     "description",          null: false
     t.datetime "closed_at"
     t.datetime "created_at",           null: false

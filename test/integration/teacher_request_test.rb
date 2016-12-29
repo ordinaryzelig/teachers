@@ -2,6 +2,8 @@ require 'test_helper'
 
 describe 'Teacher request integration' do
 
+  include ActiveJob::TestHelper
+
   it 'lets a teacher create a TeacherRequest' do
     teacher = Factories.teaching_position.teacher
     login_as teacher
@@ -41,6 +43,25 @@ describe 'Teacher request integration' do
 
     current_path.must_equal teacher_request_path(teacher_request)
     page.must_have_content "Closed on #{Date.current.to_s(:short)}"
+  end
+
+  it 'notifies supporters on creation' do
+    donor = Factories.donor
+    teacher = Factories.teaching_position.teacher
+    donor.teachers << teacher
+    login_as teacher
+
+    perform_enqueued_jobs do
+      click_on 'Make a request'
+      fill_in 'Title', :with => 'Pencils'
+      fill_in 'Description', :with => 'No. 2'
+      click_on 'Request'
+    end
+
+    ActionMailer::Base.deliveries.size.must_equal 1
+    email = ActionMailer::Base.deliveries.first
+    email.to.must_equal [donor.email]
+    email.subject.must_equal "#{teacher.name} needs Pencils. Can you help?"
   end
 
 end
