@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :teachers, :only => [] do
+  resources :teachers, :only => [:show] do
     resources :teacher_requests, :only => [:index]
   end
+
+  resources :followships, :only => [:create]
 
   get '/auth/:provider/callback', to: 'sessions#create'
 end

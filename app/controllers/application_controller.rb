@@ -7,13 +7,16 @@ private
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+  helper_method :current_user
 
   def current_teacher
     current_user.teacher? ? current_user : raise("current_user #{current_user.id} is not a teacher")
   end
+  helper_method :current_teacher
 
   def current_teaching_position
     @current_teaching_position ||= current_teacher.teaching_positions.latest
   end
+  helper_method :current_teaching_position
 
 end

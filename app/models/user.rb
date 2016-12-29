@@ -9,6 +9,11 @@ class User < ApplicationRecord
   has_many :schools, :through => :teaching_positions
   has_many :teacher_requests, :through => :teaching_positions
 
+  has_many :supporter_follows, :class_name => 'Followship', :foreign_key => 'teacher_id'
+  has_many :supporters, :through => :supporter_follows
+  has_many :teacher_follows, :class_name => 'Followship', :foreign_key => 'supporter_id'
+  has_many :teachers, :through => :teacher_follows
+
   CATEGORIES = %w[
     teacher
     donor
@@ -39,12 +44,23 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ')
   end
 
+  def support(teacher)
+    teachers << teacher
+  end
+
+  def supports?(teacher)
+    teachers
+      .where(:id => teacher.id)
+      .exists?
+  end
+
   CATEGORIES.each do |cat|
     define_method "#{cat}?" do
       category == cat
     end
   end
 
+  # So teachers path uses '/teachers'.
   def model_name
     return super unless category
     ActiveModel::Name.new(self.class, nil, category.classify)

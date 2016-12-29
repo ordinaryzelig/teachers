@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220020312) do
+ActiveRecord::Schema.define(version: 20161229044758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20161220020312) do
     t.datetime "updated_at",         null: false
     t.index ["teacher_request_id"], name: "index_comments_on_teacher_request_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
+
+  create_table "followships", force: :cascade do |t|
+    t.integer "teacher_id",   null: false
+    t.integer "supporter_id", null: false
+    t.index ["supporter_id"], name: "index_followships_on_supporter_id", using: :btree
+    t.index ["teacher_id", "supporter_id"], name: "index_followships_on_teacher_id_and_supporter_id", unique: true, using: :btree
+    t.index ["teacher_id"], name: "index_followships_on_teacher_id", using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
@@ -67,6 +75,8 @@ ActiveRecord::Schema.define(version: 20161220020312) do
 
   add_foreign_key "comments", "teacher_requests"
   add_foreign_key "comments", "users"
+  add_foreign_key "followships", "users", column: "supporter_id"
+  add_foreign_key "followships", "users", column: "teacher_id"
   add_foreign_key "teacher_requests", "teaching_positions"
   add_foreign_key "teaching_positions", "schools"
   add_foreign_key "teaching_positions", "users", column: "teacher_id"
