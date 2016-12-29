@@ -2,15 +2,12 @@ module Factories
 
   module_function
 
-  def stephanie(atts = {})
-    atts[:email]      ||= 'stephanie@adler.com'
-    atts[:first_name] ||= 'Stephanie'
-    atts[:last_name]  ||= 'Adler'
-    User.create!(
-      atts.merge(
-        :category => 'teacher',
-      )
-    )
+  def teacher(atts = {})
+    atts[:email]      ||= 'teacher@teachers.edu'
+    atts[:first_name] ||= 'Teach'
+    atts[:last_name]  ||= 'Er'
+    atts[:category]   ||= 'teacher'
+    User.create!(atts)
   end
 
 end

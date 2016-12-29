@@ -10,12 +10,12 @@ describe Comment do
     it 'includes TeacherRequest owner, previous commenters' do
       donor         = Factories.donor(:email => '1@donor.com')
       another_donor = Factories.donor(:email => '2@donor.com')
-      need_frosting = Factories.need_frosting
-      teacher       = need_frosting.teacher
+      teacher_request = Factories.teacher_request
+      teacher       = teacher_request.teacher
 
-      donor_comment         = need_frosting.comments.create!(:user => donor)
-      teacher_comment       = need_frosting.comments.create!(:user => teacher)
-      another_donor_comment = need_frosting.comments.create!(:user => another_donor)
+      donor_comment         = teacher_request.comments.create!(:user => donor)
+      teacher_comment       = teacher_request.comments.create!(:user => teacher)
+      another_donor_comment = teacher_request.comments.create!(:user => another_donor)
 
       another_donor_comment.users_to_email.to_a.must_equal [donor, teacher]
     end

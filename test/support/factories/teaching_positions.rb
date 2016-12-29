@@ -2,9 +2,9 @@ module Factories
 
   module_function
 
-  def stephanie_at_piedmont(atts = {})
-    atts[:teacher] ||= Factories.stephanie
-    atts[:school]  ||= Factories.piedmont_primary
+  def teaching_position(atts = {})
+    atts[:teacher] ||= Factories.teacher
+    atts[:school]  ||= Factories.school
     TeachingPosition.create!(atts)
   end
 

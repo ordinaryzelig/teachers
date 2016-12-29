@@ -47,7 +47,7 @@ describe User do
   end
 
   it 'is found by facebook auth_hash' do
-    user = Factories.stephanie
+    user = Factories.teacher
     user_count = User.count
     auth_hash = {
       :provider => 'facebook',
