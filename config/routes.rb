@@ -7,17 +7,19 @@ Rails.application.routes.draw do
     end
   end
   resources :comments
-  resources :users
+  resources :users, :only => [:show, :edit, :update] do
+    resource :category, :only => [:edit] do
+      post :teacher
+      post :donor
+    end
+    resources :teacher_requests, :only => [:index]
+  end
 
   resources :teaching_positions, :only => [:show, :new, :create]
   resources :teacher_requests, :only => [:new, :create, :edit, :update, :show] do
     member do
       patch :close
     end
-  end
-
-  resources :teachers, :only => [:show] do
-    resources :teacher_requests, :only => [:index]
   end
 
   resources :followships, :only => [:create]

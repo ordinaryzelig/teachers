@@ -17,7 +17,7 @@ describe Comment do
       teacher_comment       = teacher_request.comments.create!(:user => teacher)
       another_donor_comment = teacher_request.comments.create!(:user => another_donor)
 
-      another_donor_comment.users_to_email.to_a.must_equal [donor, teacher]
+      another_donor_comment.users_to_email.to_a.sort.must_equal [donor, teacher].sort
     end
 
   end

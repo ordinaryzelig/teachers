@@ -7,7 +7,7 @@ module Factories
     atts[:last_name]  ||= 'Versace'
     atts[:email]      ||= 'donor@versace.com'
     atts[:category]   ||= 'donor'
-    User.create!(atts)
+    Factories.user(atts)
   end
 
 end

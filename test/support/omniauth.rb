@@ -1,5 +1,7 @@
 OmniAuth.config.test_mode = true
 
+# You don't need to use this directly.
+# Controller test and Integration test use it with `login_as`.
 module OmniAuthTestHelper
 
   module_function

@@ -1,0 +1,7 @@
+%h1
+  - if flash[:registration]
+    Please confirm your information
+  - else
+    Editing User
+
+= render 'form', user: @user

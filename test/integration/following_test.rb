@@ -7,7 +7,7 @@ describe 'Following integration' do
     teacher = Factories.teacher
     login_as donor
 
-    visit teacher_path(teacher)
+    visit user_path(teacher)
     click_on 'Support'
 
     page.must_have_content 'You are a supporter'

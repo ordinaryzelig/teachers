@@ -1,6 +1,9 @@
 class TeachingPositionsController < ApplicationController
 
+  include RegistrationHelper
+
   before_action :set_teaching_position, only: [:show]
+  before_action :mark_registration_action
 
   def new
     @teaching_position = current_teacher.teaching_positions.build
@@ -11,7 +14,13 @@ class TeachingPositionsController < ApplicationController
 
     respond_to do |format|
       if @teaching_position.save
-        format.html { redirect_to @teaching_position, notice: 'Teaching position was successfully created.' }
+        format.html do
+          if amid_registration?
+            redirect_to [:edit, current_teacher]
+          else
+            redirect_to @teaching_position, :notice => 'Teaching position was successfully created.'
+          end
+        end
         format.json { render :show, status: :created, location: @teaching_position }
       else
         format.html { render :new }

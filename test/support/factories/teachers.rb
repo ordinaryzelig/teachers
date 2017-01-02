@@ -8,7 +8,7 @@ module Factories
     atts[:first_name] ||= 'Teach'
     atts[:last_name]  ||= 'Er'
     atts[:category]   ||= 'teacher'
-    User.create!(atts)
+    Factories.user(atts)
   end
 
 end

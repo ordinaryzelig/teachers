@@ -87,10 +87,8 @@ class User < ApplicationRecord
     end
   end
 
-  # So teachers path uses '/teachers'.
-  def model_name
-    return super unless category
-    ActiveModel::Name.new(self.class, nil, category.classify)
+  def registration_complete?
+    category.present?
   end
 
 end

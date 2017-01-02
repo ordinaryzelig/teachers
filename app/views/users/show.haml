@@ -1,0 +1,8 @@
+%h3= @user.professional_name
+%h4= @user.name
+
+- unless current_user == @user
+  - if current_user.supports?(@user)
+    = 'You are a supporter'
+  - else
+    = link_to 'Support', followships_path(:teacher_id => @user.id), :method => :post
