@@ -45,7 +45,6 @@ private
         :title,
         :first_name,
         :last_name,
-        :category,
       )
   end
 
