@@ -2,3 +2,5 @@
   - if current_user.teacher?
     = current_user.professional_name
     = current_user.teaching_positions.latest.school.name
+  - else
+    = current_user.name

@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
 
   def donor
     update_category('donor')
-    redirect_to @user
+    redirect_to [:edit, @user]
   end
 
 private

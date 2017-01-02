@@ -26,4 +26,21 @@ describe 'User registration integration' do
     page.must_have_content user.professional_name
   end
 
+  it 'asks Donor to confirm/add information' do
+    user = Factories.user
+    login_as user
+
+    page.must_have_content 'Are you here as an educator'
+    click_on 'No'
+
+    page.must_have_content 'Please confirm your information'
+    select 'Mrs.'
+    click_on 'Save'
+
+    user.reload
+    user.must_be :donor?
+    page.current_path.must_equal dashboard_path
+    page.must_have_content user.name
+  end
+
 end
